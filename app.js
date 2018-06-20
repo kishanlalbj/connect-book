@@ -1,5 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const passport = require("passport");
+
 const port = process.env.PORT || 3000;
 const db = require("./server/config/keys").mongoURI;
 const users = require("./server/routes/api/users");
@@ -13,12 +16,18 @@ mongoose
   .then(() => console.log("Database Connected"))
   .catch(err => console.log(err));
 
-app.get("/", (req, res) => {
-  res.send("Hello");
-});
+//Middlewares
+app.use(
+  bodyParser.urlencoded({
+    extended: false
+  })
+);
+app.use(bodyParser.json());
+app.use(passport.initialize);
 
+//passport config
+// require("./config/passport")(passport);
 // Use routes
-
 app.use("/api/users", users);
 app.use("/api/profiles", profiles);
 app.use("/api/posts", posts);
