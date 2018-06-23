@@ -23,10 +23,11 @@ app.use(
   })
 );
 app.use(bodyParser.json());
-app.use(passport.initialize);
+app.use(passport.initialize());
 
-//passport config
-// require("./config/passport")(passport);
+//passport middlewares
+require("./server/config/passport")(passport);
+
 // Use routes
 app.use("/api/users", users);
 app.use("/api/profiles", profiles);
