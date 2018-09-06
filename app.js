@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 const db = require("./server/config/keys").mongoURI;
 const users = require("./server/routes/api/users");
 const profiles = require("./server/routes/api/profiles");
@@ -25,6 +25,19 @@ app.use(
 app.use(bodyParser.json());
 app.use(passport.initialize());
 
+// CORS
+app.use("*", function(req, res, next) {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+  );
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Authorization, x-user-access-token, x-access-token, Content-Type, Accept"
+  );
+  next();
+});
 //passport middlewares
 require("./server/config/passport")(passport);
 

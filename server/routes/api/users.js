@@ -18,7 +18,8 @@ router.get("/testuser", (req, res) => res.json({ name: "user" }));
 router.post("/register", (req, res) => {
   User.findOne({ email: req.body.email }).then(email => {
     if (email) {
-      return res.status(400).json({ message: "Email already exists" });
+      console.log("DUPLICATE", email);
+      return res.status(400).json({ error: "Email already exists" });
     } else {
       const avatar = gravatar.url(req.body.email, {
         s: "200", //size
@@ -42,7 +43,10 @@ router.post("/register", (req, res) => {
           newUser
             .save()
             .then(user => res.json(user))
-            .catch(err => console.log(err));
+            .catch(err => {
+              console.log(err);
+              res.status(400).json({ error: "Unable to add user" });
+            });
         });
       });
     }
