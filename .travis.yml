@@ -1,0 +1,15 @@
+language: nodejs
+nodejs:
+  - stable
+cache: 
+  directories:
+    - node_modules
+addons: 
+  sonarcloud:
+    organization: kishanlalbj-github
+    token:
+     secure: 49acb60d60ed741493fbaf3567ed3584a0ee9523
+script:
+  - sonar-scanner
+  - npm run build
+  - npm test
