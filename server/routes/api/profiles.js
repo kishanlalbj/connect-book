@@ -57,9 +57,9 @@ router.post(
       console.log("TYPE OFFF", typeof req.body.skills);
       if (typeof req.body.skills === undefined) {
         console.log("IFFFFF");
-        profileFields.skills = req.body.skills.split(",");
+        profileFields.skills = null;
       } else {
-        // profileFields.skills = req.body.skills.split(",");
+        profileFields.skills = req.body.skills.split(",");
       }
       //Social
       profileFields.social = {};
