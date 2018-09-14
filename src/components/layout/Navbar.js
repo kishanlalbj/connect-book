@@ -6,10 +6,6 @@ import { logoutUser } from "../../actions/authActions";
 import { clearCurrentProfile } from "./../../actions/profileActions";
 
 class Navbar extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   logout = e => {
     e.preventDefault();
     this.props.logoutUser();
@@ -24,7 +20,7 @@ class Navbar extends Component {
     const authLinks = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
-          <a href="#" className="nav-link" onClick={this.logout.bind(this)}>
+          <a href="" className="nav-link" onClick={this.logout.bind(this)}>
             <img
               className="rounded-circle"
               src={user.avatar}

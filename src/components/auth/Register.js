@@ -40,7 +40,7 @@ class Register extends Component {
     this.props.registerUser(newUser, this.props.history);
   };
   render() {
-    const { user } = this.props.auth;
+    // const { user } = this.props.auth;
     return (
       <div className="register">
         {/* {user ? user.name : null} */}
@@ -98,7 +98,7 @@ class Register extends Component {
                   />
                 </div>
                 <input type="submit" className="btn btn-info btn-block mt-4" />
-                {this.state.error != "" ? (
+                {this.state.error !== "" ? (
                   <p style={{ color: "red", textAlign: "center" }}>
                     {this.state.error}
                   </p>

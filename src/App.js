@@ -1,10 +1,5 @@
 import React, { Component } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Redirect,
-  Switch
-} from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 
 import "./App.css";
@@ -22,7 +17,6 @@ import Dashboard from "./components/dashboard/Dashboard";
 import { clearCurrentProfile } from "./actions/profileActions";
 import CreateProfile from "./components/dashboard/CreateProfile";
 
-let loggedin = false;
 if (localStorage.jwtToken) {
   //set Auth Token
   setAuthHeader(localStorage.jwtToken);
@@ -35,13 +29,8 @@ if (localStorage.jwtToken) {
   if (decoded.exp < currentTime) {
     store.dispatch(logoutUser());
     store.dispatch(clearCurrentProfile());
-    loggedin = false;
     this.props.history.push("/login");
-  } else {
-    loggedin = true;
   }
-} else {
-  loggedin = false;
 }
 
 class App extends Component {
