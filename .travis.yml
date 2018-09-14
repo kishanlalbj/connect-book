@@ -13,4 +13,3 @@ script:
   - sonar-scanner
   - npm install
   - npm run build
-  - npm test
