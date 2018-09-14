@@ -298,7 +298,7 @@ router.delete(
 // @access  Private
 router.delete(
   "/",
-  passport.authenticate("jwt", { session: true }),
+  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     try {
       Profile.findOneAndRemove({ user: req.user.id }).then(() => {
