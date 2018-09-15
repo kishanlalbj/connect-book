@@ -5,7 +5,11 @@ import TextFieldGroup from "./../Input/TextFieldGroup";
 import { Link, withRouter } from "react-router-dom";
 import TextAreaFieldGroup from "./../Input/TextAreaFieldGroup";
 import SelectListGroup from "./../Input/SelectListGroup";
-import { createProfile } from "./../../actions/profileActions";
+import isEmpty from "./../../utils/isEmpty";
+import {
+  createProfile,
+  getCurrentProfile
+} from "./../../actions/profileActions";
 
 class CreateProfile extends Component {
   constructor(props) {
@@ -24,13 +28,72 @@ class CreateProfile extends Component {
       facebook: "",
       linkedin: "",
       instagram: "",
-      error: ""
+      error: "",
+      mode: ""
     };
+  }
+  componentDidMount() {
+    if (!this.props.auth.isAuthenticated) {
+      this.props.history.push("/login");
+    }
+    this.props.getCurrentProfile();
+    // console.log(this.props.profile.profile);
+    if (this.props.profile.profile === null) {
+      console.log("loading");
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.error) {
       this.setState({ error: nextProps.error });
+    }
+
+    if (
+      nextProps.profile.profile != null &&
+      Object.keys(nextProps.profile.profile).length > 0
+    ) {
+      console.log("NEXT PROPS", nextProps.profile.profile);
+      const profile = nextProps.profile.profile;
+      profile.handle = !isEmpty(profile.handle) ? profile.handle : "";
+
+      profile.company = !isEmpty(profile.company) ? profile.company : "";
+      profile.website = !isEmpty(profile.website) ? profile.website : "";
+      profile.location = !isEmpty(profile.location) ? profile.location : "";
+      profile.status = !isEmpty(profile.status) ? profile.status : "";
+      profile.githubusername = !isEmpty(profile.githubusername)
+        ? profile.githubusername
+        : "";
+      profile.social = !isEmpty(profile.social) ? profile.social : {};
+      profile.twitter = !isEmpty(profile.social.twitter)
+        ? profile.social.twitter
+        : "";
+      profile.facebook = !isEmpty(profile.social.facebook)
+        ? profile.social.facebook
+        : "";
+      profile.instagram = !isEmpty(profile.social.instagram)
+        ? profile.social.instagram
+        : "";
+      profile.linkedin = !isEmpty(profile.social.linkedin)
+        ? profile.social.linkedin
+        : "";
+
+      this.setState({
+        mode: "Edit",
+        handle: profile.handle,
+        company: profile.company,
+        website: profile.website,
+        location: profile.location,
+        status: profile.status,
+        githubusername: profile.githubusername,
+        bio: profile.bio,
+        skills: profile.skills.join(","),
+        twitter: profile.twitter,
+        facebook: profile.facebook,
+        instagram: profile.instagram,
+        linkedin: profile.linkedin
+      });
+    } else {
+      this.setState({ mode: "Create" });
     }
   }
 
@@ -51,6 +114,7 @@ class CreateProfile extends Component {
       linkedin: this.state.linkedin,
       instagram: this.state.instagram
     };
+    console.log("SUBMITTED", profile);
     this.props.createProfile(profile, this.props.history);
   };
   render() {
@@ -62,7 +126,9 @@ class CreateProfile extends Component {
               <Link to="/dashboard" className="btn btn-light">
                 Go Back
               </Link>
-              <h1 className="display-4 text-center">Create Your Profile</h1>
+              <h1 className="display-4 text-center">
+                {this.state.mode} Your Profile
+              </h1>
               <p className="lead text-center">
                 Let's get some information to make your profile stand out
               </p>
@@ -198,7 +264,7 @@ class CreateProfile extends Component {
                       <input
                         type="text"
                         className="form-control form-control-lg"
-                        placeholder="Linkedin Profile URL"
+                        placeholder="linkedin Profile URL"
                         name="linkedin"
                         value={this.state.linkedin}
                         onChange={this.handleChange.bind(this)}
@@ -235,12 +301,15 @@ class CreateProfile extends Component {
 CreateProfile.propTypes = {
   profile: PropTypes.object,
   error: PropTypes.string,
-  createProfile: PropTypes.func.isRequired
+  createProfile: PropTypes.func.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
   auth: state.auth,
-  err: state.err
+  err: state.err,
+  profile: state.profile
 });
-export default connect(mapStateToProps, { createProfile })(
+
+export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
   withRouter(CreateProfile)
 );
