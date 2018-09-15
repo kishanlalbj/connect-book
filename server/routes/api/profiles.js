@@ -52,9 +52,9 @@ router.post(
       if (req.body.location) profileFields.location = req.body.location;
       if (req.body.status) profileFields.status = req.body.status;
       if (req.body.githubusername)
-        profileFields.handle = req.body.githubusername;
+        profileFields.githubusername = req.body.githubusername;
       //skills
-      console.log("TYPE OFFF", typeof req.body.skills);
+
       if (typeof req.body.skills === undefined) {
         console.log("IFFFFF");
         profileFields.skills = null;
@@ -63,7 +63,7 @@ router.post(
       }
       //Social
       profileFields.social = {};
-
+      console.log("LINKEDDDDDIN", req.body.linkedin);
       if (req.body.facebook) profileFields.social.facebook = req.body.facebook;
       if (req.body.twitter) profileFields.social.twitter = req.body.twitter;
       if (req.body.linkedin) profileFields.social.linkedin = req.body.linkedin;
@@ -80,6 +80,7 @@ router.post(
               { new: true }
             )
               .then(updatedProfile => {
+                console.log(JSON.stringify(updatedProfile, undefined, 2));
                 res.send(updatedProfile);
               })
               .catch(error =>

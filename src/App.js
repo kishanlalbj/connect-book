@@ -29,7 +29,8 @@ if (localStorage.jwtToken) {
   if (decoded.exp < currentTime) {
     store.dispatch(logoutUser());
     store.dispatch(clearCurrentProfile());
-    this.props.history.push("/login");
+    // this.props.history.push("/login");
+    window.location.href = "/login";
   }
 }
 
@@ -46,6 +47,7 @@ class App extends Component {
               <Route exact path="/signup" component={Register} />
               <Route exact path="/dashboard" component={Dashboard} />
               <Route exact path="/create-profile" component={CreateProfile} />
+              <Route exact path="/edit" component={CreateProfile} />
             </div>
             <Footer />
           </div>
