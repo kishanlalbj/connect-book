@@ -37,17 +37,24 @@ class Experience extends Component {
     return (
       <div>
         <h4 className="mb-4">Experience</h4>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Company</th>
-              <th>Title</th>
-              <th>Years</th>
-              <th />
-            </tr>
-          </thead>
-          <tbody>{experience}</tbody>
-        </table>
+        {this.props.experience.length > 0 ? (
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Company</th>
+                <th>Title</th>
+                <th>Years</th>
+                <th />
+              </tr>
+            </thead>
+            <tbody>{experience}</tbody>
+          </table>
+        ) : (
+          <div style={{ margin: "auto" }}>
+            {" "}
+            <em> Please add experience details </em>
+          </div>
+        )}
       </div>
     );
   }
