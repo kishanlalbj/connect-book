@@ -112,11 +112,12 @@ router.post(
 router.get("/handle/:handle", (req, res) => {
   try {
     Profile.findOne({ handle: req.params.handle })
-      .populate("users", ["name", "avatar"])
+      .populate("user", ["name", "avatar"])
       .then(profile => {
         if (!profile) {
           res.status(404).json({ error: "Profile Not found" });
         }
+        console.log(JSON.stringify(profile, undefined, 2));
         res.json(profile);
       })
       .catch(error => res.status(500).json({ error: "Internal Server Error" }));

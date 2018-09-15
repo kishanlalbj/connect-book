@@ -6,7 +6,7 @@ import {
   deleteAccount
 } from "./../../actions/profileActions";
 import { Link } from "react-router-dom";
-import Profile from "./Profile";
+import ProfileActions from "./ProfileActions";
 import Experience from "./Experience";
 import Education from "./Education";
 
@@ -50,8 +50,9 @@ class Dashboard extends Component {
               welcome {" "}
               <Link to={`/profiles/${profile.handle}`}>{user.name}</Link>
             </p>
-            <Profile />
+            <ProfileActions />
             <Experience experience={profile.experience} />
+            <br />
             <Education education={profile.education} />
             <div style={{ marginBottom: "60px" }} />
             <button
