@@ -33,7 +33,7 @@ TextFieldGroup.propTypes = {
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
-  disabled: PropTypes.string,
+  disabled: PropTypes.bool,
   info: PropTypes.string,
   type: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,

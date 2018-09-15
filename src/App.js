@@ -16,6 +16,8 @@ import { logoutUser } from "./actions/authActions";
 import Dashboard from "./components/dashboard/Dashboard";
 import { clearCurrentProfile } from "./actions/profileActions";
 import CreateProfile from "./components/dashboard/CreateProfile";
+import AddExperience from "./components/dashboard/AddExperience";
+import AddEducation from "./components/dashboard/AddEducation";
 
 if (localStorage.jwtToken) {
   //set Auth Token
@@ -48,6 +50,8 @@ class App extends Component {
               <Route exact path="/dashboard" component={Dashboard} />
               <Route exact path="/create-profile" component={CreateProfile} />
               <Route exact path="/edit" component={CreateProfile} />
+              <Route exact path="/addexp" component={AddExperience} />
+              <Route exact path="/addedu" component={AddEducation} />
             </div>
             <Footer />
           </div>

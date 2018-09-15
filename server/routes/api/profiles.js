@@ -56,14 +56,12 @@ router.post(
       //skills
 
       if (typeof req.body.skills === undefined) {
-        console.log("IFFFFF");
         profileFields.skills = null;
       } else {
         profileFields.skills = req.body.skills.split(",");
       }
       //Social
       profileFields.social = {};
-      console.log("LINKEDDDDDIN", req.body.linkedin);
       if (req.body.facebook) profileFields.social.facebook = req.body.facebook;
       if (req.body.twitter) profileFields.social.twitter = req.body.twitter;
       if (req.body.linkedin) profileFields.social.linkedin = req.body.linkedin;
