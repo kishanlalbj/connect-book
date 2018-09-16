@@ -20,6 +20,7 @@ import AddExperience from "./components/dashboard/AddExperience";
 import AddEducation from "./components/dashboard/AddEducation";
 import AllProfiles from "./components/dashboard/AllPofiles";
 import Profile from "./components/profile/Profile";
+import NotFound from "./components/dashboard/NotFound";
 
 if (localStorage.jwtToken) {
   //set Auth Token
@@ -56,6 +57,7 @@ class App extends Component {
               <Route exact path="/addedu" component={AddEducation} />
               <Route exact path="/profiles" component={AllProfiles} />
               <Route exact path="/profiles/:handle" component={Profile} />
+              <Route exact path="/notfound" component={NotFound} />
             </div>
             <Footer />
           </div>
