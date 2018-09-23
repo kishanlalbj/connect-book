@@ -155,6 +155,7 @@ router.post(
   "/comment/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    console.log("GOT YOU..!!");
     try {
       const newComment = {
         text: req.body.text,
