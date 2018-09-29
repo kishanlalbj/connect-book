@@ -40,12 +40,14 @@ app.use("*", function(req, res, next) {
 });
 //passport middlewares
 require("./server/config/passport")(passport);
-
 // Use routes
 app.use("/api/users", users);
 app.use("/api/profiles", profiles);
 app.use("/api/posts", posts);
 
+if (process.env.NODE_ENV === "prod") {
+  app.use(express.static(path.join(__dirname, "build")));
+}
 // Start server
 app.listen(port, (err, server) =>
   console.log(`server started in port ${port}`)
