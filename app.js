@@ -45,8 +45,10 @@ app.use("/api/users", users);
 app.use("/api/profiles", profiles);
 app.use("/api/posts", posts);
 console.log("**************************************", process.env.NODE_ENV);
+console.log(__dirname);
+
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "build")));
+  app.use(express.static(path.join(__dirname, "build/index.html")));
 }
 // Start server
 app.listen(port, (err, server) =>
