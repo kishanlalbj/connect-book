@@ -99,3 +99,13 @@ export const addComment = (id, commentData) => dispatch => {
       dispatch({ type: GET_ERRORS, payload: err.response.data });
     });
 };
+
+export const deleteComment = (postId, commentId) => dispatch => {
+  axios
+    .delete(`http://localhost:5000/api/posts/${postId}/comment/${commentId}`)
+    .then(res => dispatch({ type: GET_POST, payload: res.data }))
+    .catch(err => {
+      console.log(err);
+      dispatch({ type: GET_ERRORS, payload: err });
+    });
+};
