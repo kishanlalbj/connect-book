@@ -4,10 +4,11 @@ nodejs:
 cache:
   directories:
     - node_modules
+env:
+  - MODE=prod
 branches:
   only:
     - master
-    - dev
 addons:
   sonarcloud:
     organization: kishanlalbj-github

@@ -1,4 +1,5 @@
-module.exports = {
-  mongoURI: "mongodb://localhost:27017/connectbook",
-  secret: "secret-key"
-};
+if (process.env.MODE === "prod") {
+  module.exports = require("./keys-prod");
+} else {
+  module.exports = require("./keys-dev");
+}
