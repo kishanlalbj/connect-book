@@ -28,7 +28,10 @@ router.post(
       newpost
         .save()
         .then(post => res.json(post))
-        .catch(err => res.status(400).json({ error: "Unable to post" }));
+        .catch(err => {
+          console.log(err);
+          res.status(400).json({ error: "Unable to post" });
+        });
     } catch (error) {
       console.log("***************************", error);
       res.status(500).json({ error: error });
@@ -123,6 +126,7 @@ router.post(
               return res.json(post);
             })
             .catch(err => {
+              console.log("DISLIKE", err);
               return res.status(400).json({ error: "Unable to like Post" });
             });
         } else {
@@ -133,7 +137,8 @@ router.post(
               return res.json(post);
             })
             .catch(err => {
-              return res.status(400).json({ error: "Unable to like Post" });
+              console.log("like", err);
+              return res.status(400).json({ error: "Unable to dislike Post" });
             });
         }
       });
@@ -150,6 +155,7 @@ router.post(
   "/comment/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    console.log("GOT YOU..!!");
     try {
       const newComment = {
         text: req.body.text,

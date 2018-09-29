@@ -4,6 +4,10 @@ nodejs:
 cache: 
   directories:
     - node_modules
+branches:
+  only:
+    - master
+    - dev
 addons: 
   sonarcloud:
     organization: kishanlalbj-github
