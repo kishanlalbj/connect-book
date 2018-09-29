@@ -24,6 +24,9 @@ app.use(
 );
 app.use(bodyParser.json());
 app.use(passport.initialize());
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "build/index.html")));
+}
 
 // CORS
 app.use("*", function(req, res, next) {
@@ -47,9 +50,7 @@ app.use("/api/posts", posts);
 console.log("**************************************", process.env.NODE_ENV);
 console.log(__dirname);
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "build/index.html")));
-}
+
 // Start server
 app.listen(port, (err, server) =>
   console.log(`server started in port ${port}`)
