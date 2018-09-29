@@ -96,7 +96,7 @@ const ProfileSchema = new Schema({
     }
   ],
   social: {
-    likedin: {
+    linkedin: {
       type: String
     },
     twitter: {

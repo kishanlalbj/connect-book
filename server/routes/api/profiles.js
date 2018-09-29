@@ -52,18 +52,16 @@ router.post(
       if (req.body.location) profileFields.location = req.body.location;
       if (req.body.status) profileFields.status = req.body.status;
       if (req.body.githubusername)
-        profileFields.handle = req.body.githubusername;
+        profileFields.githubusername = req.body.githubusername;
       //skills
-      console.log("TYPE OFFF", typeof req.body.skills);
+
       if (typeof req.body.skills === undefined) {
-        console.log("IFFFFF");
-        profileFields.skills = req.body.skills.split(",");
+        profileFields.skills = null;
       } else {
-        // profileFields.skills = req.body.skills.split(",");
+        profileFields.skills = req.body.skills.split(",");
       }
       //Social
       profileFields.social = {};
-
       if (req.body.facebook) profileFields.social.facebook = req.body.facebook;
       if (req.body.twitter) profileFields.social.twitter = req.body.twitter;
       if (req.body.linkedin) profileFields.social.linkedin = req.body.linkedin;
@@ -80,6 +78,7 @@ router.post(
               { new: true }
             )
               .then(updatedProfile => {
+                console.log(JSON.stringify(updatedProfile, undefined, 2));
                 res.send(updatedProfile);
               })
               .catch(error =>
@@ -113,11 +112,12 @@ router.post(
 router.get("/handle/:handle", (req, res) => {
   try {
     Profile.findOne({ handle: req.params.handle })
-      .populate("users", ["name", "avatar"])
+      .populate("user", ["name", "avatar"])
       .then(profile => {
         if (!profile) {
           res.status(404).json({ error: "Profile Not found" });
         }
+        console.log(JSON.stringify(profile, undefined, 2));
         res.json(profile);
       })
       .catch(error => res.status(500).json({ error: "Internal Server Error" }));
@@ -298,7 +298,7 @@ router.delete(
 // @access  Private
 router.delete(
   "/",
-  passport.authenticate("jwt", { session: true }),
+  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     try {
       Profile.findOneAndRemove({ user: req.user.id }).then(() => {

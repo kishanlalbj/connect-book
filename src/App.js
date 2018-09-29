@@ -16,6 +16,13 @@ import { logoutUser } from "./actions/authActions";
 import Dashboard from "./components/dashboard/Dashboard";
 import { clearCurrentProfile } from "./actions/profileActions";
 import CreateProfile from "./components/dashboard/CreateProfile";
+import AddExperience from "./components/dashboard/AddExperience";
+import AddEducation from "./components/dashboard/AddEducation";
+import AllProfiles from "./components/dashboard/AllPofiles";
+import Profile from "./components/profile/Profile";
+import NotFound from "./components/dashboard/NotFound";
+import Posts from "./components/posts/Posts";
+import Post from "./components/post/Post";
 
 if (localStorage.jwtToken) {
   //set Auth Token
@@ -29,7 +36,8 @@ if (localStorage.jwtToken) {
   if (decoded.exp < currentTime) {
     store.dispatch(logoutUser());
     store.dispatch(clearCurrentProfile());
-    this.props.history.push("/login");
+    // this.props.history.push("/login");
+    window.location.href = "/login";
   }
 }
 
@@ -46,6 +54,14 @@ class App extends Component {
               <Route exact path="/signup" component={Register} />
               <Route exact path="/dashboard" component={Dashboard} />
               <Route exact path="/create-profile" component={CreateProfile} />
+              <Route exact path="/edit" component={CreateProfile} />
+              <Route exact path="/addexp" component={AddExperience} />
+              <Route exact path="/addedu" component={AddEducation} />
+              <Route exact path="/profiles" component={AllProfiles} />
+              <Route exact path="/profiles/:handle" component={Profile} />
+              <Route exact path="/notfound" component={NotFound} />
+              <Route exact path="/feed" component={Posts} />
+              <Route exact path="/post/:id" component={Post} />
             </div>
             <Footer />
           </div>
