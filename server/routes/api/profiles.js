@@ -78,7 +78,7 @@ router.post(
               { new: true }
             )
               .then(updatedProfile => {
-                console.log(JSON.stringify(updatedProfile, undefined, 2));
+                // console.log(JSON.stringify(updatedProfile, undefined, 2));
                 res.send(updatedProfile);
               })
               .catch(error =>
