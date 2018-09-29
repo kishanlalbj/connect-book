@@ -12,7 +12,7 @@ import { logoutUser } from "./authActions";
 export const getProfileByHandle = handle => dispatch => {
   dispatch(setProfileLoading());
   axios
-    .get(`http://localhost:5000/api/profiles/handle/${handle}`)
+    .get(`/api/profiles/handle/${handle}`)
     .then(profile => {
       dispatch({ type: GET_PROFILE, payload: profile.data });
     })
@@ -28,7 +28,7 @@ export const getProfileByHandle = handle => dispatch => {
 export const getProfiles = () => dispatch => {
   dispatch(setProfileLoading());
   axios
-    .get("http://localhost:5000/api/profiles/all")
+    .get("/api/profiles/all")
     .then(res => {
       dispatch({
         type: GET_PROFILES,
@@ -46,7 +46,7 @@ export const getProfiles = () => dispatch => {
 export const getCurrentProfile = () => dispatch => {
   dispatch(setProfileLoading());
   axios
-    .get("http://localhost:5000/api/profiles")
+    .get("/api/profiles")
     .then(profile => {
       dispatch({ type: GET_PROFILE, payload: profile.data });
     })
@@ -75,7 +75,7 @@ export const clearCurrentProfile = () => {
 //CREATE PROFILE
 export const createProfile = (profileData, history) => dispatch => {
   axios
-    .post("http://localhost:5000/api/profiles", profileData)
+    .post("/api/profiles", profileData)
     .then(profile => {
       history.push("/dashboard");
     })
@@ -89,7 +89,7 @@ export const createProfile = (profileData, history) => dispatch => {
 //Add experience
 export const addExperience = (expData, history) => dispatch => {
   axios
-    .post("http://localhost:5000/api/profiles/experience", expData)
+    .post("/api/profiles/experience", expData)
     .then(res => {
       history.push("/dashboard");
     })
@@ -98,7 +98,7 @@ export const addExperience = (expData, history) => dispatch => {
 //Delete Experience
 export const deleteExperience = expid => dispatch => {
   axios
-    .delete("http://localhost:5000/api/profiles/experience/" + expid)
+    .delete("/api/profiles/experience/" + expid)
     .then(res => {
       dispatch({ type: GET_PROFILE, payload: res.data });
     })
@@ -107,7 +107,7 @@ export const deleteExperience = expid => dispatch => {
 //Add education
 export const addEducation = (eduData, history) => dispatch => {
   axios
-    .post("http://localhost:5000/api/profiles/education", eduData)
+    .post("/api/profiles/education", eduData)
     .then(res => {
       history.push("/dashboard");
     })
@@ -117,7 +117,7 @@ export const addEducation = (eduData, history) => dispatch => {
 //Delete Education
 export const deleteEducation = eduid => dispatch => {
   axios
-    .delete("http://localhost:5000/api/profiles/education/" + eduid)
+    .delete("/api/profiles/education/" + eduid)
     .then(res => {
       dispatch({ type: GET_PROFILE, payload: res.data });
     })
@@ -127,7 +127,7 @@ export const deleteEducation = eduid => dispatch => {
 //Delete account
 export const deleteAccount = history => dispatch => {
   axios
-    .delete("http://localhost:5000/api/profiles")
+    .delete("/api/profiles")
     .then(response => {
       dispatch(logoutUser());
       history.push("/login");

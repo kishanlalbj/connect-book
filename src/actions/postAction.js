@@ -11,7 +11,7 @@ import {
 //Add Post
 export const addPost = postData => dispatch => {
   axios
-    .post("http://localhost:5000/api/posts", postData)
+    .post("/api/posts", postData)
     .then(res =>
       dispatch({
         type: ADD_POST,
@@ -28,7 +28,7 @@ export const setPostLoading = () => {
 export const getPosts = () => dispatch => {
   dispatch(setPostLoading());
   axios
-    .get("http://localhost:5000/api/posts/")
+    .get("/api/posts/")
     .then(res => {
       console.log(res.data);
       return dispatch({
@@ -47,7 +47,7 @@ export const getPosts = () => dispatch => {
 export const getPost = id => dispatch => {
   dispatch(setPostLoading());
   axios
-    .get("http://localhost:5000/api/posts/" + id)
+    .get("/api/posts/" + id)
     .then(res => {
       return dispatch({
         type: GET_POST,
@@ -64,7 +64,7 @@ export const getPost = id => dispatch => {
 
 export const deletePost = id => dispatch => {
   axios
-    .delete(`http://localhost:5000/api/posts/${id}`)
+    .delete(`/api/posts/${id}`)
     .then(res => {
       dispatch({
         type: DELETE_POST,
@@ -82,7 +82,7 @@ export const deletePost = id => dispatch => {
 
 export const likeDislike = id => dispatch => {
   axios
-    .post(`http://localhost:5000/api/posts/like/${id}`)
+    .post(`/api/posts/like/${id}`)
     .then(res => dispatch(getPosts()))
     .catch(err => {
       console.log(err);
@@ -92,7 +92,7 @@ export const likeDislike = id => dispatch => {
 
 export const addComment = (id, commentData) => dispatch => {
   axios
-    .post(`http://localhost:5000/api/posts/comment/${id}`, commentData)
+    .post(`/api/posts/comment/${id}`, commentData)
     .then(res => dispatch({ type: GET_POST, payload: res.data }))
     .catch(err => {
       console.log(err);
@@ -102,7 +102,7 @@ export const addComment = (id, commentData) => dispatch => {
 
 export const deleteComment = (postId, commentId) => dispatch => {
   axios
-    .delete(`http://localhost:5000/api/posts/${postId}/comment/${commentId}`)
+    .delete(`/api/posts/${postId}/comment/${commentId}`)
     .then(res => dispatch({ type: GET_POST, payload: res.data }))
     .catch(err => {
       console.log(err);
