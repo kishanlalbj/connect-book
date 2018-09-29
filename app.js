@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
-
+const path = require("path");
 const port = process.env.PORT || 5000;
 const db = require("./server/config/keys").mongoURI;
 const users = require("./server/routes/api/users");
